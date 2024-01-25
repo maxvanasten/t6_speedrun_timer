@@ -6,27 +6,29 @@
 
 #include scripts\zm\hb_speedrun_timer;
 
+// The get_splits() function should look like this:
 get_splits()
 {
     splits = [];
-
+    // create_split(identifier, name);
     splits[0] = create_split("nml", "No mans land");
     splits[1] = create_split("staff_1", "Staff I");
     splits[2] = create_split("staff_2", "Staff II");
     splits[3] = create_split("staff_3", "Staff III");
     splits[4] = create_split("staff_4", "Staff IV");
     splits[5] = create_split("staffs_upgraded", "Staffs upgraded");
-    log("Amount of splits: "+splits.size);
+    
     return splits;
 }
 
+// The check_split function should look like this
 check_split(split_identifier)
 {
     switch(split_identifier)
     {
         case "nml":
-            flag_wait("activate_zone_nml");
-            self.split_complete = 1;
+            flag_wait("activate_zone_nml"); // This is a condition on which the split would be complete
+            self.split_complete = 1; // This indicates to the core script that this split is complete
             break;
         case "staff_1":
             if (level.n_staffs_crafted == 1)
@@ -52,7 +54,7 @@ check_split(split_identifier)
                 self.split_complete = 1;
             }
             break;
-        case "all_staffs_upgraded":
+        case "staffs_upgraded":
             flag_wait("ee_all_staffs_upgraded");
             self.split_complete = 1;
             break;
