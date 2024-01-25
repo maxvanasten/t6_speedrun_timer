@@ -8,12 +8,6 @@
 // Include splitfile
 #include scripts\zm\hb_splits\origins_staffs;
 
-log(text)
-{
-    Print (text);
-    Printf (text);
-}
-
 init()
 {
     level thread onPlayerConnect();
@@ -39,20 +33,21 @@ initialize()
 {
     level endon ("game_ended");
     self endon ("disconnect");
-
+    // Wait for initial blackscreen to pass
     flag_wait ("initial_blackscreen_passed");
 
     // DEV: Give points to test nml split
     // self.score = 10000;
 
-    level.start_time = gettime();
-    level.split_time = level.start_time;
+    // Initialize time variables
+    level.start_time = gettime(); // The time since the start of the game
+    level.split_time = level.start_time; // The time since the last split was completed
+    // Initialize split variables
+    self.splits = get_splits(); // get_splits() is a function provided by the split file
+    self.current_split = 0; // The index of the current split
+    self.run_complete = 0; // = 1 when all of the splits are complete
 
-    self.splits = get_splits();
-    self.current_split = 0;
-    self.run_complete = 0;
-
-    self.split_complete = 0;
+    self.split_complete = 0; // = 1 when the current split is complete
 
     setup_main_timer ();
     self setup_split_ui ();
@@ -77,7 +72,6 @@ main_loop()
 
     if (self.split_complete == 1)
     {
-        log("[main_loop]: Setting time_string for "+identifier+" to "+get_time_as_string("delta")+" - "+get_time_as_string("total"));
         self.split_complete = 0;
         self.splits[self.current_split].time_string = "<^5"+get_time_as_string("delta")+"^7> - (^3"+get_time_as_string("total")+"^7)";
         level.split_time = gettime();
@@ -99,7 +93,7 @@ create_split(identifier, name)
     split.identifier = identifier;
     split.name = name;
     split.time_string = "-";
-    log("create_split: "+split.identifier);
+    
     return split;
 }
 
