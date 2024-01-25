@@ -6,7 +6,12 @@
 #include maps\mp\zombies\_zm_score;
 
 // Include splitfile you'd like to use
+
+// ORIGINS NML + STAFFS + STAFFS UPGRADED
 #include scripts\zm\hb_splits\origins_staffs;
+
+// ROUND 50 SPEEDRUN
+// #include scripts\zm\hb_splits\sr50;
 
 // Configuration
 config()
