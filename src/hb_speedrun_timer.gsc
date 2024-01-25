@@ -8,6 +8,27 @@
 // Include splitfile
 #include scripts\zm\hb_splits\origins_staffs;
 
+// Configuration
+config()
+{
+    cfg = spawnstruct();
+    // Main timer config
+    cfg.main_timer_color = (0.7, 0.1, 0.1); // Color of the main timer
+    cfg.timer_font = "Objective";
+    cfg.timer_font_size = 1.5;
+    // Split ui config
+    cfg.text_color = (0.7, 0.7, 0.7); // Color of the regular text
+    cfg.delta_time_color = "^5"; // Color of the time since the last split
+    cfg.total_time_color = "^3"; // Color of the time since the beginning of the game   
+    cfg.splits_font = "Objective";
+    cfg.splits_font_size = 1.2;
+
+    cfg.position_x = -275;
+    cfg.position_y = 100;
+
+    return cfg;
+}
+
 init()
 {
     level thread onPlayerConnect();
@@ -37,7 +58,7 @@ initialize()
     flag_wait ("initial_blackscreen_passed");
 
     // DEV: Give points to test nml split
-    // self.score = 10000;
+    self.score = 10000;
 
     // Initialize time variables
     level.start_time = gettime(); // The time since the start of the game
@@ -73,7 +94,7 @@ main_loop()
     if (self.split_complete == 1)
     {
         self.split_complete = 0;
-        self.splits[self.current_split].time_string = "<^5"+get_time_as_string("delta")+"^7> - (^3"+get_time_as_string("total")+"^7)";
+        self.splits[self.current_split].time_string = "<"+config().delta_time_color+get_time_as_string("delta")+"^7> - ("+config().total_time_color+get_time_as_string("total")+"^7)";
         level.split_time = gettime();
         self thread update_split_ui ();
         if (isDefined(self.splits[self.current_split + 1]))
@@ -99,12 +120,12 @@ create_split(identifier, name)
 
 setup_split_ui()
 {
-    self.split_ui = createFontString ("Objective", 1.5);
-    self.split_ui setPoint ("CENTER", "CENTER", 300, -175);
+    self.split_ui = createFontString (config().splits_font, config().splits_font_size);
+    self.split_ui setPoint ("CENTER", "CENTER", config().position_x, config().position_y+25);
     self.split_ui.alpha = 1;
     self.split_ui.hidewheninmenu = 1;
     self.split_ui.hidewhendead = 1;
-    self.split_ui.color = (0.7, 0.7, 0.7);
+    self.split_ui.color = config().text_color;
     self.split_ui setText("Loading...");
 }
 
@@ -123,12 +144,12 @@ update_split_ui()
 
 setup_main_timer()
 {
-    timer = createFontString ("Objective", 1.5);
-    timer setPoint ("CENTER", "CENTER", 300, -200);
+    timer = createFontString (config().timer_font, config().timer_font_size);
+    timer setPoint ("CENTER", "CENTER", config().position_x, config().position_y);
     timer.alpha = 1;
     timer.hidewheninmenu = 1;
     timer.hidewhendead = 1;
-    timer.color = (1.0, 0.4, 0.4);
+    timer.color = config().main_timer_color;
     timer setTenthsTimerUp (0.05); 
 }
 

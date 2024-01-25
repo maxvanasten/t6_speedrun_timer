@@ -18,4 +18,4 @@ Discord: `mdva.`
 
 ## Upcoming features
 
--   A configuration file for changing the colors, font and font size
+-   N/a
