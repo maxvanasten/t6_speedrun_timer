@@ -5,7 +5,7 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_score;
 
-// Include splitfile
+// Include splitfile you'd like to use
 #include scripts\zm\hb_splits\origins_staffs;
 
 // Configuration
@@ -58,7 +58,7 @@ initialize()
     flag_wait ("initial_blackscreen_passed");
 
     // DEV: Give points to test nml split
-    self.score = 10000;
+    // self.score = 10000;
 
     // Initialize time variables
     level.start_time = gettime(); // The time since the start of the game
