@@ -4,6 +4,7 @@
 #include maps\mp\gametypes_zm\_hud_message;
 #include maps\mp\zombies\_zm_utility;
 
+// Include the core script
 #include scripts\zm\hb_speedrun_timer;
 
 // The get_splits() function should look like this:
