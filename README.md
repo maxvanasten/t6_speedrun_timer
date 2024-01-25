@@ -16,6 +16,10 @@ Plutonium Forums: `HasjBlok`
 <br>
 Discord: `mdva.`
 
+## Contribute
+
+Did you make a split file for a certain run that you would like to share with the community? Make a pull request! If you don't know how, simply contact me using my details above.
+
 ## Upcoming features
 
 -   N/a
